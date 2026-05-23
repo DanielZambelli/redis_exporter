@@ -65,6 +65,7 @@ type Options struct {
 	CountKeys                      string
 	LuaScript                      map[string][]byte
 	LuaScriptReadOnly              bool
+	TLSServerName                  string
 	ClientCertFile                 string
 	ClientKeyFile                  string
 	CaCertFile                     string

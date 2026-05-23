@@ -181,6 +181,7 @@ func main() {
 		tlsServerCertFile              = flag.String("tls-server-cert-file", getEnv("REDIS_EXPORTER_TLS_SERVER_CERT_FILE", ""), "Name of the server certificate file (including full path) if the web interface and telemetry should use TLS")
 		tlsServerCaCertFile            = flag.String("tls-server-ca-cert-file", getEnv("REDIS_EXPORTER_TLS_SERVER_CA_CERT_FILE", ""), "Name of the CA certificate file (including full path) if the web interface and telemetry should require TLS client authentication")
 		tlsServerMinVersion            = flag.String("tls-server-min-version", getEnv("REDIS_EXPORTER_TLS_SERVER_MIN_VERSION", "TLS1.2"), "Minimum TLS version that is acceptable by the web interface and telemetry when using TLS")
+		tlsServerName                  = flag.String("tls-server-name", getEnv("REDIS_EXPORTER_TLS_SERVER_NAME", ""), "TLS server name/SNI override for Redis connection")
 		maxDistinctKeyGroups           = flag.Int64("max-distinct-key-groups", getEnvInt64("REDIS_EXPORTER_MAX_DISTINCT_KEY_GROUPS", 100), "The maximum number of distinct key groups with the most memory utilization to present as distinct metrics per database, the leftover key groups will be aggregated in the 'overflow' bucket")
 		isDebug                        = flag.Bool("debug", getEnvBool("REDIS_EXPORTER_DEBUG", false), "Output verbose debug information (sets log level to DEBUG, takes precedence over \"--log-level\")")
 		logLevel                       = flag.String("log-level", getEnv("REDIS_EXPORTER_LOG_LEVEL", "INFO"), "Set log level")
@@ -297,6 +298,7 @@ func main() {
 			ClientCertFile:                 *tlsClientCertFile,
 			ClientKeyFile:                  *tlsClientKeyFile,
 			CaCertFile:                     *tlsCaCertFile,
+			TLSServerName:                  *tlsServerName,
 			ConnectionTimeouts:             to,
 			MetricsPath:                    *metricPath,
 			RedisMetricsOnly:               *redisMetricsOnly,

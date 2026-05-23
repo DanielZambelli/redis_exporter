@@ -13,6 +13,7 @@ import (
 func (e *Exporter) CreateClientTLSConfig() (*tls.Config, error) {
 	tlsConfig := tls.Config{
 		InsecureSkipVerify: e.options.SkipTLSVerification,
+		ServerName:         e.options.TLSServerName,
 	}
 
 	if e.options.ClientCertFile != "" && e.options.ClientKeyFile != "" {
@@ -30,7 +31,6 @@ func (e *Exporter) CreateClientTLSConfig() (*tls.Config, error) {
 		}
 		tlsConfig.RootCAs = certificates
 	} else {
-		// Load the system certificate pool
 		rootCAs, err := x509.SystemCertPool()
 		if err != nil {
 			return nil, err
